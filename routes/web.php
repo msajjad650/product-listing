@@ -18,4 +18,5 @@ Route::get('/', function () {
 });
 
 Route::get('importProducts', 'ImportProductController@index');
+Route::get('batchProgress/{id}', 'ImportProductController@batchProgress');
 Route::resource('products', ProductController::class);

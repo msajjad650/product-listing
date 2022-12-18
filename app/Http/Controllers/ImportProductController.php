@@ -103,6 +103,6 @@ class ImportProductController extends Controller
      */
     public function batchProgress($id)
     {
-        return Bus::findBatch($id);
+        return dd(Bus::findBatch($id));
     }
 }
