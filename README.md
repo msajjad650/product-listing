@@ -40,7 +40,7 @@ php artisan serve
 ```
 127.0.0.1:8000/importProducts
 ```
-and in termial run
+and open new termianl and run
 ```
 php artisan queue:work
 ```
