@@ -17,26 +17,30 @@ class ImportProductController extends Controller
     
     public function index()
     {
-        // $content = Storage::get('example.txt');
+        try {
+             // $content = Storage::get('example.txt');
 
-        //Getting and parsing XML data
-        $response = Http::get('https://kidsbrandstore.s3.eu-central-1.amazonaws.com/files/products/google_sv.xml');
-        if($response->status() !== 200){
-            return 'Error';
+            //Getting and parsing XML data
+            $response = Http::get('https://kidsbrandstore.s3.eu-central-1.amazonaws.com/files/products/google_sv.xml');
+            if($response->status() !== 200){
+                return 'Error';
+            }
+            $content = $response->body();        
+            $xmlObject = new \SimpleXmlElement($content);
+            $productArr = $this->simpleXmlToArray($xmlObject->channel->item);
+            
+            //Dispatching job processes
+            $batch  = Bus::batch([])->dispatch();
+
+            //Loading products, product variants, types and brands
+            $batch = $this->generateProductTypeBatch($productArr, $batch);
+            $batch = $this->generateProductBrandBatch($productArr, $batch);
+            $batch = $this->generateProductVariantBatch($productArr, $batch);
+
+            return dd($batch);
+        } catch (\Throwable $th) {
+            throw $th;
         }
-        $content = $response->body();        
-        $xmlObject = new \SimpleXmlElement($content);
-        $productArr = $this->simpleXmlToArray($xmlObject->channel->item);
-        
-        //Dispatching job processes
-        $batch  = Bus::batch([])->dispatch();
-
-        //Loading products, product variants, types and brands
-        $batch = $this->generateProductTypeBatch($productArr, $batch);
-        $batch = $this->generateProductBrandBatch($productArr, $batch);
-        $batch = $this->generateProductVariantBatch($productArr, $batch);
-
-        dd($batch);
     }
 
     /**
