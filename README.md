@@ -25,13 +25,17 @@ composer install
 ```
 php artisan migrate
 ```
+5. Generate key
+```
+php artisan key:generate
+```
 
-5. Run project
+6. Run project
 ```
 php artisan serve
 ```
 
-6. Import all products
+7. Import all products
 ```
 127.0.0.1:8000/importProducts
 ```
