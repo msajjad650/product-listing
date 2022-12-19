@@ -5,7 +5,7 @@
 git clone https://github.com/msajjad650/product-listing.git
 ```
 
-3. Goto .env file and update database strings
+3. Goto .env file and update database and queue conntection strings
 ```
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -13,6 +13,7 @@ DB_PORT=3306
 DB_DATABASE=product-listing
 DB_USERNAME=root
 DB_PASSWORD=
+QUEUE_CONNECTION=database
 ```
 
 2. Goto project directory and do composer install
