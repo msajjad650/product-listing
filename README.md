@@ -38,12 +38,18 @@ php artisan serve
 
 7. Import all products
 ```
-127.0.0.1:8000/importProducts
+http://127.0.0.1:8000/importProducts
 ```
 and open new termianl and run
 ```
 php artisan queue:work
 ```
+
+8. List Products
+```
+http://127.0.0.1:8000/products
+```
+
 
 Product Listing
 1. Import porducts
